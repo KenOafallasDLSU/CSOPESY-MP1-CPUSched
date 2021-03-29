@@ -17,7 +17,31 @@ Section: S15
 #include "headers/psjf.h"
 #include "headers/rr.h"
 
-int main (void) {
-   printf("Hello World!");
-   return 0;
+int 
+main(void) 
+{
+    char filename[50], txt[] = ".txt";
+    int algo, nprocesses, tsv;
+
+    printf("Enter file name: ");
+    scanf("%s", filename);
+
+    strcat(filename, txt);
+
+    FILE* fp = fopen(filename,"r");
+
+    if(fp == NULL)
+    {
+        printf("%s not found.", filename);
+        return 0;
+    }
+
+    while(fscanf(fp, "%d %d %d", algo, nprocesses, tsv) == 1)
+    {
+            
+    }
+
+    fclose(fp);
+        
+    return 0;
 }
