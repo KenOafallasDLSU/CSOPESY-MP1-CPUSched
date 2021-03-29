@@ -5,8 +5,9 @@ Group: 16
 Section: S15
 ***********************************************/
 
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "headers/process.h"
 #include "headers/queue.h"
