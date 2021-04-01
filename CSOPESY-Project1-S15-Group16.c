@@ -52,7 +52,7 @@ main(void)
                  total_execution_time[i] = total_execution_time;
             }
             
-            fcfs(process_id_list, arrival_time_list, total_execution_time);
+            fcfs(nprocesses, process_id_list, arrival_time_list, total_execution_time);
     }
 
     fclose(fp);
