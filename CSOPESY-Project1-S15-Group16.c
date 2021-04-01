@@ -22,6 +22,8 @@ main(void)
 {
     char filename[50], txt[] = ".txt";
     int algo, nprocesses, tsv;
+    int process_id, arrival_time, total_execution_time;
+    int process_id_list[], arrival_time_list[], total_execution_time[];
 
     printf("Enter file name: ");
     scanf("%s", filename);
@@ -35,10 +37,22 @@ main(void)
         printf("%s not found.", filename);
         return 0;
     }
-
-    while(fscanf(fp, "%d %d %d", algo, nprocesses, tsv) == 1)
+    
+    fscanf(fp, "%d %d %d", algo, nprocesses, tsv)
+    
+    int i;
+    
+    if(algo == 1)
     {
+            for(i = 0; i < nprocesses; i++)
+            {
+                 fscanf(fp, "%d %d %d", process_id, arrival_time, total_execution_time);
+                 process_id_list[i] = process_id;
+                 arrival_time_list[i] = arrival_time;
+                 total_execution_time[i] = total_execution_time;
+            }
             
+            fcfs(process_id_list, arrival_time_list, total_execution_time);
     }
 
     fclose(fp);
