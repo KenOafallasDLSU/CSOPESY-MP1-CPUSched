@@ -12,7 +12,7 @@ Section: S15
 //#include "headers/process.h"
 //#include "headers/queue.h"
 #include "headers/fcfs.h"
-//#include "headers/nsjf.h"
+#include "headers/nsjf.h"
 //#include "headers/psjf.h"
 //#include "headers/rr.h"
 
@@ -56,6 +56,20 @@ main(void)
             
         fcfs(nprocesses, process_id_list, arrival_time_list, exec_time_list);
     }
+    else if(algo == 1)
+    {
+    	int i;
+    	
+    	for(i = 0; i < nprocesses; i++)
+    	{
+    	    fscanf(fp, "%d %d %d", &process_id, &arrival_time, &exec_time);
+            process_id_list[i] = process_id;
+            arrival_time_list[i] = arrival_time;
+            exec_time_list[i] = exec_time;
+	}
+		
+	nsjf(nprocesses, process_id_list, arrival_time_list, exec_time_list);
+     }
 
     fclose(fp);
         
