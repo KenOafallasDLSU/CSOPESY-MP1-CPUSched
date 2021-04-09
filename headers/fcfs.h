@@ -10,7 +10,7 @@ Section: S15
 void
 fcfs(int nprocesses, int process_id_list[], int arrival_time_list[], int exec_time_list[])
 {
-	int total_exec_time = 0, total_wt = 0, start_time = 0;
+	int total_wt = 0, start_time = 0, end_time = 0, turn_around;
 	int temp;
 	float awt;
         
@@ -35,19 +35,20 @@ fcfs(int nprocesses, int process_id_list[], int arrival_time_list[], int exec_ti
 	
     for(i = 0; i < nprocesses; i++)
     {
-    	total_exec_time += exec_time_list[i];
+    	end_time += exec_time_list[i];
+    	turn_around = start_time + exec_time_list[i];
     	
         printf("P[%d]\n", process_id_list[i]);
-        printf("Start Time: %d End time: %d\n", start_time, total_exec_time);
+        printf("Start Time: %d End time: %d\n", start_time, end_time);
         printf("Waiting time: %d\n", start_time);
-        printf("Turnaround time: %d\n", total_exec_time);
+        printf("Turnaround time: %d\n", turn_around);
         printf("************************************\n");
         
         total_wt += start_time;
-        start_time = total_exec_time;
+        start_time = end_time;
     }
     
-	awt = total_wt / nprocesses;
+	awt = (float) total_wt / nprocesses;
 	    
     printf("Average waiting time: %.1f", awt);
 }
