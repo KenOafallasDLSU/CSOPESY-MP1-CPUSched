@@ -9,11 +9,11 @@ Section: S15
 #include <stdlib.h>
 #include <string.h>
 
-//#include "headers/process.h"
+#include "headers/process.h"
 //#include "headers/queue.h"
 #include "headers/fcfs.h"
 #include "headers/nsjf.h"
-//#include "headers/psjf.h"
+#include "headers/psjf.h"
 //#include "headers/rr.h"
 
 #define MAX 100
@@ -70,6 +70,13 @@ main(void)
 		
 	nsjf(nprocesses, process_id_list, arrival_time_list, exec_time_list);
      }
+    else if(algo == 2)
+    {
+        struct Process aProcesses[nprocesses];
+        for(int i=0; i < nprocesses; i++)
+            fscanf(fp, "%d %d %d", &aProcesses[i].processID, &aProcesses[i].arrivalTime, &aProcesses[i].executionTime);
+        psjf(nprocesses, aProcesses)
+    }
 
     fclose(fp);
         
