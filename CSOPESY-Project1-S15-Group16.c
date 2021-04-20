@@ -10,11 +10,11 @@ Section: S15
 #include <string.h>
 
 #include "headers/process.h"
-//#include "headers/queue.h"
+#include "headers/queue.h"
 #include "headers/fcfs.h"
 #include "headers/nsjf.h"
 #include "headers/psjf.h"
-//#include "headers/rr.h"
+#include "headers/rr.h"
 
 #define MAX 100
 
@@ -85,6 +85,30 @@ main(void)
             aProcesses[i].aEnd = (int*) malloc(sizeof(int));
         }
         psjf(nprocesses, aProcesses);
+        
+        //dealloc
+        for(i=0; i < nprocesses; i++)
+        {
+        	free(aProcesses[i].aStart);
+        	free(aProcesses[i].aEnd);
+		}
+    }
+    else if(algo == 3)
+    {
+        struct Process aProcesses[nprocesses];
+        int i;
+        for(i=0; i < nprocesses; i++)
+        {
+            fscanf(fp, "%d %d %d", &aProcesses[i].processID, &aProcesses[i].arrivalTime, &aProcesses[i].executionTime);
+            aProcesses[i].waitingTime = 0;
+            aProcesses[i].remainingTime = aProcesses[i].executionTime;
+            aProcesses[i].turnaroundTime = aProcesses[i].executionTime;
+            aProcesses[i].runCnt = 0;
+            aProcesses[i].aStart = (int*) malloc(sizeof(int));
+            aProcesses[i].aEnd = (int*) malloc(sizeof(int));
+        }
+
+        rr(tsv, nprocesses, aProcesses);
         
         //dealloc
         for(i=0; i < nprocesses; i++)

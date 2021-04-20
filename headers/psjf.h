@@ -4,8 +4,6 @@ Names:  TAN, Darren
 Group: 16
 Section: S15
 ***********************************************/
-#include <stdio.h>
-
 int checkAllDone(int nProcesses, struct Process aProcesses[])
 {
         int bAllDone = 1;
@@ -112,8 +110,8 @@ void psjf(int nProcesses, struct Process aProcesses[])
                 	shortest = newShortest;
                 	aProcesses[shortest].aStart[aProcesses[shortest].runCnt] = systemTime;
                 	aProcesses[shortest].runCnt++;
-				}
-				else if(shortest != newShortest)
+		}
+		else if(shortest != newShortest)
                 {
                         aProcesses[shortest].aEnd[aProcesses[shortest].runCnt-1] = systemTime;
                         shortest = newShortest;
@@ -151,5 +149,5 @@ void psjf(int nProcesses, struct Process aProcesses[])
         }
         
         awt = getAvgWaitingTime(nProcesses, aProcesses);
-        printf("Average Waiting Time: %.2f", awt);
+        printf("Average Waiting Time: %.1f", awt);
 }
