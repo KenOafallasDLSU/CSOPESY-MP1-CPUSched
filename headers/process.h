@@ -6,10 +6,13 @@ Section: S15
 ***********************************************/
 struct Process
 {
-        int processID = 0;
-        int arrivalTime = 0;
-        int executionTime = 0;
-        int remainingTime = 0;
-        int waitingTime = 0;
-        int turnaroundTime = 0;
-}
+        int processID;
+        int arrivalTime;
+        int executionTime;
+        int remainingTime;
+        int waitingTime;
+        int turnaroundTime;
+        int *aStart;
+        int runCnt;
+        int *aEnd;
+};

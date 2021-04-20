@@ -73,9 +73,25 @@ main(void)
     else if(algo == 2)
     {
         struct Process aProcesses[nprocesses];
-        for(int i=0; i < nprocesses; i++)
+        int i;
+        for(i=0; i < nprocesses; i++)
+        {
             fscanf(fp, "%d %d %d", &aProcesses[i].processID, &aProcesses[i].arrivalTime, &aProcesses[i].executionTime);
-        psjf(nprocesses, aProcesses)
+            aProcesses[i].waitingTime = 0;
+            aProcesses[i].remainingTime = aProcesses[i].executionTime;
+            aProcesses[i].turnaroundTime = aProcesses[i].executionTime;
+            aProcesses[i].runCnt = 0;
+            aProcesses[i].aStart = (int*) malloc(sizeof(int));
+            aProcesses[i].aEnd = (int*) malloc(sizeof(int));
+        }
+        psjf(nprocesses, aProcesses);
+        
+        //dealloc
+        for(i=0; i < nprocesses; i++)
+        {
+        	free(aProcesses[i].aStart);
+        	free(aProcesses[i].aEnd);
+		}
     }
 
     fclose(fp);
