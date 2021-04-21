@@ -19,7 +19,8 @@ void rr(int timeShare, int nProcesses, struct Process aProcesses[])
         while(checkAllDone(nProcesses, aProcesses) == 0)
         {       
                 //check new arrivals
-                newProcess = checkNewArrival(systemTime, nProcesses, aProcesses);
+                int loc = 0;
+                newProcess = checkNewArrival(loc, systemTime, nProcesses, aProcesses);
                 
                 if(newProcess >= 0)
                 	enqueue(newProcess, &aQueue);
