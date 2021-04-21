@@ -20,11 +20,13 @@ void rr(int timeShare, int nProcesses, struct Process aProcesses[])
         {       
                 //check new arrivals
                 int loc = 0;
-                newProcess = checkNewArrival(loc, systemTime, nProcesses, aProcesses);
+                do{
+                	newProcess = checkNewArrival(loc, systemTime, nProcesses, aProcesses);
+                	if(newProcess >= 0)
+                		enqueue(newProcess, &aQueue);
+                	loc = newProcess+1;
+                } while(newProcess != -1);
                 
-                if(newProcess >= 0)
-                	enqueue(newProcess, &aQueue);
-
                 //preempt
                 if(countdown == timeShare)
                 {
@@ -37,7 +39,7 @@ void rr(int timeShare, int nProcesses, struct Process aProcesses[])
                                 aProcesses[active].aStart[aProcesses[active].runCnt] = systemTime;
                                 aProcesses[active].runCnt++;
                         }
-                        else if((active != newActive) && active >= 0 && newActive >= 0)
+                        else if(active >= 0/* && newActive >= 0*/)
                         {
                                 aProcesses[active].aEnd[aProcesses[active].runCnt-1] = systemTime;
                                 enqueue(active, &aQueue);
