@@ -16,11 +16,11 @@ int checkAllDone(int nProcesses, struct Process aProcesses[])
         return bAllDone;
 }
 
-int checkNewArrival(int systemTime, int nProcesses, struct Process aProcesses[])
+int checkNewArrival(int loc, int systemTime, int nProcesses, struct Process aProcesses[])
 {
         int found = -1;
 
-        int ctr = 0;
+        int ctr = loc;
         while(found <= -1 && ctr < nProcesses)
         {
                 if(aProcesses[ctr].arrivalTime == systemTime)
@@ -33,18 +33,21 @@ int checkNewArrival(int systemTime, int nProcesses, struct Process aProcesses[])
 
 int getShortestRemaining(int nArrivedCnt, int aArrived[], struct Process aProcesses[])
 {
+		if(nArrivedCnt == 0) return -1;
+		
         int shortest = aArrived[0];
-
 		int i;
         for(i=0; i<nArrivedCnt; i++)
         {
                 if(aProcesses[shortest].remainingTime == 0)
                         shortest = aArrived[i];
-                else if(aProcesses[i].remainingTime != 0 && 
-                        aProcesses[i].remainingTime < aProcesses[shortest].remainingTime)
+                else if(aProcesses[aArrived[i]].remainingTime != 0 && 
+                        aProcesses[aArrived[i]].remainingTime < aProcesses[shortest].remainingTime)
                         shortest = aArrived[i];
+                //printf("shortTime: %d\n", aProcesses[aArrived[i]].remainingTime);
         }
 
+		if(aProcesses[shortest].remainingTime == 0) return -1;
         return shortest;
 }
 
@@ -96,22 +99,28 @@ void psjf(int nProcesses, struct Process aProcesses[])
         while(checkAllDone(nProcesses, aProcesses) == 0)
         {
                 //check new arrivals
-                newProcess = checkNewArrival(systemTime, nProcesses, aProcesses);
-                if(newProcess >= 0)
-                {
-                        aArrived[nArrivedCnt] = newProcess;
-                        nArrivedCnt++; 
-                }
-
+                int loc = 0;
+                do{
+                	newProcess = checkNewArrival(loc, systemTime, nProcesses, aProcesses);
+	                if(newProcess >= 0)
+	                {
+	                        aArrived[nArrivedCnt] = newProcess;
+	                        nArrivedCnt++; 
+	                }
+	                //printf("Arrived %d\n", newProcess);
+	                loc = newProcess+1;
+				} while(newProcess != -1);
+                
                 //preempt
                 newShortest = getShortestRemaining(nArrivedCnt, aArrived, aProcesses);
+                //printf("%d\n", newShortest);
                 if (shortest < 0 && newShortest >= 0)
                 {
                 	shortest = newShortest;
                 	aProcesses[shortest].aStart[aProcesses[shortest].runCnt] = systemTime;
                 	aProcesses[shortest].runCnt++;
-		}
-		else if(shortest != newShortest)
+				}
+				else if(shortest != newShortest)
                 {
                         aProcesses[shortest].aEnd[aProcesses[shortest].runCnt-1] = systemTime;
                         shortest = newShortest;
@@ -141,10 +150,12 @@ void psjf(int nProcesses, struct Process aProcesses[])
                 systemTime++;
                 
                 //print report
+                if(shortest == -1) continue;
         		if(aProcesses[shortest].remainingTime == 0)
         		{
         				aProcesses[shortest].aEnd[aProcesses[shortest].runCnt-1] = systemTime;
         				printProcessReport(&aProcesses[shortest]);
+        				shortest = -1;
         		}
         }
         
