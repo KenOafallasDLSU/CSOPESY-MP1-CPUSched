@@ -11,6 +11,7 @@ Section: S15
 
 #include "headers/process.h"
 #include "headers/queue.h"
+#include "headers/helpers.h"
 #include "headers/fcfs.h"
 #include "headers/nsjf.h"
 #include "headers/psjf.h"
@@ -83,8 +84,11 @@ main(void)
             aProcesses[i].runCnt = 0;
             aProcesses[i].aStart = (int*) malloc(sizeof(int));
             aProcesses[i].aEnd = (int*) malloc(sizeof(int));
+            
         }
+        
         psjf(nprocesses, aProcesses);
+        printGantt(nprocesses, aProcesses);
         
         //dealloc
         for(i=0; i < nprocesses; i++)
@@ -93,7 +97,7 @@ main(void)
         	free(aProcesses[i].aEnd);
 		}
     }
-    else if(algo == 3)
+    else if(algo == 3) //Round Robin
     {
         struct Process aProcesses[nprocesses];
         int i;
@@ -109,6 +113,7 @@ main(void)
         }
 
         rr(tsv, nprocesses, aProcesses);
+        printGantt(nprocesses, aProcesses);
         
         //dealloc
         for(i=0; i < nprocesses; i++)

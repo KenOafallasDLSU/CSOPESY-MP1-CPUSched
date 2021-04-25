@@ -6,7 +6,7 @@ Section: S15
 ***********************************************/
 void rr(int timeShare, int nProcesses, struct Process aProcesses[])
 {
-		int newProcess;
+	int newProcess;
         int systemTime = 0;
         int newActive = -1;
         int active = -1;
@@ -81,12 +81,8 @@ void rr(int timeShare, int nProcesses, struct Process aProcesses[])
                         printProcessReport(&aProcesses[active]);
                         active = -1;
                 }
-//                else
-//                {
-//                	printf("%d Remaining: %d\n", active, aProcesses[active].remainingTime);
-//				}
         }
 
         awt = getAvgWaitingTime(nProcesses, aProcesses);
-        printf("Average Waiting Time: %.1f", awt);
+        printf("Average Waiting Time: %.1f\n", awt);
 }
