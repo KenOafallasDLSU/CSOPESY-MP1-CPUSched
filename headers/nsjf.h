@@ -72,21 +72,45 @@ nsjf(int nprocesses, int process_id_list[], int arrival_time_list[], int exec_ti
         turn_around = end_time - arrival_time_list[end];
     	waiting_time = turn_around - exec_time_list[end];
         
-        if(arrival_time_list[end] - 1 != arrival_time_list[end - 1] && !(arrival_time_list[end] == arrival_time_list[end - 1]))
-    	{
+		
+		if(end_time - exec_time_list[end] < arrival_time_list[end])
+		{
+			printf("%d  +-------+\n", end_time - exec_time_list[end]);
+    		printf("   |       |\n");
+    		printf("   |       |\n");
+    		printf("   |       |\n");
+    		printf("   |       |\n");
+    		printf("   |       |\n");
+    		
     		start_time = arrival_time_list[end];
     		end_time = arrival_time_list[end] + exec_time_list[end];
     		turn_around = end_time - arrival_time_list[end];
     		waiting_time = turn_around - exec_time_list[end];
+    		
+    		printf("%d  +-------+\n", start_time);
+    		printf("   |       |\n");
+    		printf("   |       |  Waiting time: %d\n", waiting_time);
+    		printf("   | P[%d]  |\n", process_id_list[end]);
+    		printf("   |       |  Turnaround time: %d\n", turn_around);
+    		printf("   |       |\n");
 		}
-        
-        printf("P[%d]\n", process_id_list[end]);
-        printf("Start Time: %d End time: %d\n", start_time, end_time);
-        printf("Waiting time: %d\n", waiting_time);
-        printf("Turnaround time: %d\n", turn_around);
-        printf("************************************\n");
-        
-        total_wt += end_time - arrival_time_list[end] - exec_time_list[end];
+		else
+		{
+			printf("%d  +-------+\n", start_time);
+    		printf("   |       |\n");
+    		printf("   |       |  Waiting time: %d\n", waiting_time);
+    		printf("   | P[%d]  |\n", process_id_list[end]);
+    		printf("   |       |  Turnaround time: %d\n", turn_around);
+    		printf("   |       |\n");
+		}
+		
+		if(end == nprocesses - 1)
+        {
+        	printf("%d +-------+\n\n", end_time);
+		}
+		
+       
+        total_wt += waiting_time;
         end++;
     }
    
