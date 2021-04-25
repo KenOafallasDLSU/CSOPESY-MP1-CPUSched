@@ -41,17 +41,40 @@ fcfs(int nprocesses, int process_id_list[], int arrival_time_list[], int exec_ti
     	
     	if(arrival_time_list[i] - 1 != arrival_time_list[i - 1] && !(arrival_time_list[i] == arrival_time_list[i - 1]))
     	{
+    		printf("%d  +-------+\n", end_time - exec_time_list[i]);
+    		printf("   |       |\n");
+    		printf("   |       |\n");
+    		printf("   |       |\n");
+    		printf("   |       |\n");
+    		printf("   |       |\n");
+    		
+    		
     		start_time = arrival_time_list[i];
     		end_time = arrival_time_list[i] + exec_time_list[i];
     		turn_around = end_time - arrival_time_list[i];
     		waiting_time = turn_around - exec_time_list[i];
+    		
+    		printf("%d  +-------+\n", start_time);
+    		printf("   |       |\n");
+    		printf("   |       |  Waiting time: %d\n", waiting_time);
+    		printf("   | P[%d]  |\n", process_id_list[i]);
+    		printf("   |       |  Turnaround time: %d\n", turn_around);
+    		printf("   |       |\n");
+		}
+		else
+		{
+			printf("%d  +-------+\n", start_time);
+    		printf("   |       |\n");
+    		printf("   |       |  Waiting time: %d\n", waiting_time);
+    		printf("   | P[%d]  |\n", process_id_list[i]);
+    		printf("   |       |  Turnaround time: %d\n", turn_around);
+    		printf("   |       |\n");
 		}
     	
-        printf("P[%d]\n", process_id_list[i]);
-        printf("Start Time: %d End time: %d\n", start_time, end_time);
-        printf("Waiting time: %d\n", waiting_time);
-        printf("Turnaround time: %d\n", turn_around);
-        printf("************************************\n");
+        if(i == nprocesses - 1)
+        {
+        	printf("%d +-------+\n\n", end_time);
+		}
         
         total_wt += waiting_time;
         start_time = end_time;
