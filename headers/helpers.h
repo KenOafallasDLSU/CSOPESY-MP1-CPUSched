@@ -104,12 +104,12 @@ void printGantt(int nProcesses, struct Process aProcesses[])
                                 		doneProcess[i]++;
                                         if(aProcesses[i].aStart[k] != lastEnd)
                                         {
-                                                printf("  +------ %d\n", lastEnd);
+                                                printf("  +-------+ %d\n", lastEnd);
                                                 printf("  |       |\n");
                                                 printf("  | IDLE  |\n");
                                                 printf("  |       |\n");
                                         }
-                                        printf("  +------ %d\n", aProcesses[i].aStart[k]);
+                                        printf("  +-------+ %d\n", aProcesses[i].aStart[k]);
                                         printf("  |       |\n");
                                         printf("  | P[%d]  |\n", aProcesses[i].processID);
                                         printf("  |       |\n");
@@ -125,5 +125,5 @@ void printGantt(int nProcesses, struct Process aProcesses[])
 				else
 					systemTime++;
         } while(allPrinted == 0);
-        printf("  +-----+ %d\n", lastEnd);
+        printf("  +-------+ %d\n", lastEnd);
 }
