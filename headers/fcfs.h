@@ -33,6 +33,53 @@ fcfs(int nprocesses, int process_id_list[], int arrival_time_list[], int exec_ti
 				exec_time_list[j + 1] = temp;
 			}
 	
+	
+	for(i = 0; i < nprocesses; i++)
+    {
+    	end_time += exec_time_list[i];
+    	turn_around = end_time - arrival_time_list[i];
+    	waiting_time = turn_around - exec_time_list[i];
+
+    	if(arrival_time_list[i] - 1 != arrival_time_list[i - 1] && !(arrival_time_list[i] == arrival_time_list[i - 1]))
+    	{
+    		start_time = arrival_time_list[i];
+    		end_time = arrival_time_list[i] + exec_time_list[i];
+    		turn_around = end_time - arrival_time_list[i];
+    		waiting_time = turn_around - exec_time_list[i];
+    		
+    		printf("P[%d]\n", process_id_list[i]);
+	        printf("Start Time: %d End time: %d\n", start_time, end_time);
+	        printf("Waiting time: %d\n", waiting_time);
+	        printf("Turnaround time: %d\n", turn_around);
+	        printf("************************************\n");
+		}
+		else
+		{
+			printf("P[%d]\n", process_id_list[i]);
+	        printf("Start Time: %d End time: %d\n", start_time, end_time);
+	        printf("Waiting time: %d\n", waiting_time);
+	        printf("Turnaround time: %d\n", turn_around);
+	        printf("************************************\n");
+		}
+        
+
+        total_wt += waiting_time;
+        start_time = end_time;
+    }
+	
+	awt = (float) total_wt / nprocesses;
+	
+    printf("\nAverage waiting time: %.1f\n\n\n", awt);
+	
+	printf("------------ Gantt Chart ------------\n\n");
+	
+	start_time = 0;
+	end_time = 0;
+	turn_around = 0;
+	waiting_time = 0;
+	total_wt = 0;
+	awt = 0;
+	
     for(i = 0; i < nprocesses; i++)
     {
     	end_time += exec_time_list[i];
@@ -41,12 +88,12 @@ fcfs(int nprocesses, int process_id_list[], int arrival_time_list[], int exec_ti
     	
     	if(arrival_time_list[i] - 1 != arrival_time_list[i - 1] && !(arrival_time_list[i] == arrival_time_list[i - 1]))
     	{
-    		printf("%d  +-------+\n", end_time - exec_time_list[i]);
-    		printf("   |       |\n");
-    		printf("   |       |\n");
-    		printf("   |       |\n");
-    		printf("   |       |\n");
-    		printf("   |       |\n");
+    		printf("  +-------+ %d\n", end_time - exec_time_list[i]);
+    		printf("  |       |\n");
+    		printf("  |       |\n");
+    		printf("  | IDLE  |\n");
+    		printf("  |       |\n");
+    		printf("  |       |\n");
     		
     		
     		start_time = arrival_time_list[i];
@@ -54,33 +101,29 @@ fcfs(int nprocesses, int process_id_list[], int arrival_time_list[], int exec_ti
     		turn_around = end_time - arrival_time_list[i];
     		waiting_time = turn_around - exec_time_list[i];
     		
-    		printf("%d  +-------+\n", start_time);
-    		printf("   |       |\n");
-    		printf("   |       |  Waiting time: %d\n", waiting_time);
-    		printf("   | P[%d]  |\n", process_id_list[i]);
-    		printf("   |       |  Turnaround time: %d\n", turn_around);
-    		printf("   |       |\n");
+    		printf("  +-------+ %d\n", start_time);
+    		printf("  |       |\n");
+    		printf("  |       |\n");
+    		printf("  | P[%d]  |\n", process_id_list[i]);
+    		printf("  |       |\n");
+    		printf("  |       |\n");
 		}
 		else
 		{
-			printf("%d  +-------+\n", start_time);
-    		printf("   |       |\n");
-    		printf("   |       |  Waiting time: %d\n", waiting_time);
-    		printf("   | P[%d]  |\n", process_id_list[i]);
-    		printf("   |       |  Turnaround time: %d\n", turn_around);
-    		printf("   |       |\n");
+			printf("  +-------+ %d\n", start_time);
+    		printf("  |       |\n");
+    		printf("  |       |\n");
+    		printf("  | P[%d]  |\n", process_id_list[i]);
+    		printf("  |       |\n");
+    		printf("  |       |\n");
 		}
     	
         if(i == nprocesses - 1)
         {
-        	printf("%d +-------+\n\n", end_time);
+        	printf("  +-------+ %d\n\n", end_time);
 		}
         
         total_wt += waiting_time;
         start_time = end_time;
     }
-    
-	awt = (float) total_wt / nprocesses;
-	    
-    printf("Average waiting time: %.1f", awt);
 }
