@@ -26,6 +26,7 @@ main(void)
     int algo, nprocesses, tsv;
     int process_id, arrival_time, exec_time;
     int process_id_list[MAX], arrival_time_list[MAX], exec_time_list[MAX];
+    int readCount;
 
     printf("Enter file name: ");
     scanf("%s", filename);
@@ -41,7 +42,17 @@ main(void)
         return 0;
     }
     
-    fscanf(fp, "%d %d %d", &algo, &nprocesses, &tsv);
+    readCount = fscanf(fp, "%d %d %d", &algo, &nprocesses, &tsv);
+    if(readCount < 3)
+    {
+    	printf("ERROR: Invalid first line\n");
+        return 0;
+	}
+    if(nprocesses < 1)
+    {
+        printf("No processes\n");
+        return 0;
+    }
     
     if(algo == 0)
     {
@@ -49,7 +60,12 @@ main(void)
     	
         for(i = 0; i < nprocesses; i++)
         {
-            fscanf(fp, "%d %d %d", &process_id, &arrival_time, &exec_time);
+            readCount = fscanf(fp, "%d %d %d", &process_id, &arrival_time, &exec_time);
+            if(readCount < 3)
+            {
+            	printf("ERROR: Invalid process line\n");
+        		return 0;
+			}
             process_id_list[i] = process_id;
             arrival_time_list[i] = arrival_time;
             exec_time_list[i] = exec_time;
@@ -63,7 +79,12 @@ main(void)
     	
     	for(i = 0; i < nprocesses; i++)
     	{
-    	    fscanf(fp, "%d %d %d", &process_id, &arrival_time, &exec_time);
+    	    readCount = fscanf(fp, "%d %d %d", &process_id, &arrival_time, &exec_time);
+    	    if(readCount < 3)
+            {
+            	printf("ERROR: Invalid process line\n");
+        		return 0;
+			}
             process_id_list[i] = process_id;
             arrival_time_list[i] = arrival_time;
             exec_time_list[i] = exec_time;
@@ -77,7 +98,12 @@ main(void)
         int i;
         for(i=0; i < nprocesses; i++)
         {
-            fscanf(fp, "%d %d %d", &aProcesses[i].processID, &aProcesses[i].arrivalTime, &aProcesses[i].executionTime);
+            readCount = fscanf(fp, "%d %d %d", &aProcesses[i].processID, &aProcesses[i].arrivalTime, &aProcesses[i].executionTime);
+            if(readCount < 3)
+            {
+            	printf("ERROR: Invalid process line\n");
+        		return 0;
+			}
             aProcesses[i].waitingTime = 0;
             aProcesses[i].remainingTime = aProcesses[i].executionTime;
             aProcesses[i].turnaroundTime = aProcesses[i].executionTime;
@@ -103,7 +129,12 @@ main(void)
         int i;
         for(i=0; i < nprocesses; i++)
         {
-            fscanf(fp, "%d %d %d", &aProcesses[i].processID, &aProcesses[i].arrivalTime, &aProcesses[i].executionTime);
+            readCount = fscanf(fp, "%d %d %d", &aProcesses[i].processID, &aProcesses[i].arrivalTime, &aProcesses[i].executionTime);
+            if(readCount < 3)
+            {
+            	printf("ERROR: Invalid process line\n");
+        		return 0;
+			}
             aProcesses[i].waitingTime = 0;
             aProcesses[i].remainingTime = aProcesses[i].executionTime;
             aProcesses[i].turnaroundTime = aProcesses[i].executionTime;
