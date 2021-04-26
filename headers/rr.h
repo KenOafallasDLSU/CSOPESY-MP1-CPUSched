@@ -28,7 +28,7 @@ void rr(int timeShare, int nProcesses, struct Process aProcesses[])
                 } while(newProcess != -1);
                 
                 //preempt
-                if(countdown == timeShare)
+                if(countdown == timeShare || active < 0)
                 {
                         countdown = timeShare;
                         newActive = peek(&aQueue);

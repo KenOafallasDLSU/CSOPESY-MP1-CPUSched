@@ -110,7 +110,11 @@ main(void)
             aProcesses[i].runCnt = 0;
             aProcesses[i].aStart = (int*) malloc(sizeof(int));
             aProcesses[i].aEnd = (int*) malloc(sizeof(int));
-            
+            if(aProcesses[i].executionTime <= 0)
+            {
+            	i--;
+            	nprocesses--;
+			}
         }
         
         psjf(nprocesses, aProcesses);
@@ -141,6 +145,11 @@ main(void)
             aProcesses[i].runCnt = 0;
             aProcesses[i].aStart = (int*) malloc(sizeof(int));
             aProcesses[i].aEnd = (int*) malloc(sizeof(int));
+            if(aProcesses[i].executionTime <= 0)
+            {
+            	i--;
+            	nprocesses--;
+			}
         }
 
         rr(tsv, nprocesses, aProcesses);
